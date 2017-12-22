@@ -1,4 +1,4 @@
-(function() {
+(function () {
 
   /*
   Agenda DOM
@@ -42,19 +42,19 @@
     spanNext.onclick = () => this.nextWeek();
 
 
-    this.addEventListener = function(label, fn, bool){
-      agendaDOM.addEventListener(label, (e)=>fn(e), bool);
+    this.addEventListener = function (label, fn, bool) {
+      agendaDOM.addEventListener(label, (e) => fn(e), bool);
     }
 
 
-    this.nextWeek = function() {
+    this.nextWeek = function () {
       nbWeek++;
       currentweekdate.setDate(currentweekdate.getDate() + 7);
       spanPrev.className = 'ion ion-chevron-left';
       updateDOM();
     };
 
-    this.prevWeek = function() {
+    this.prevWeek = function () {
       let today = new Date();
       if (nbWeek > 0) {
         nbWeek--;
@@ -64,7 +64,7 @@
       }
     };
 
-    (function() {
+    (function () {
       for (var i = 0; i < 7; i++) {
         var dateDOM = document.createElement('div');
         dateDOM.className = 'fl-date';
@@ -75,13 +75,6 @@
         monthDateDOM.className = 'fl-month-date';
         var textMonthDate = document.createTextNode('');
 
-        dateDOMS.push({
-          dateDOM,
-          dayDOM,
-          monthDateDOM,
-          textDay,
-          textMonthDate
-        })
 
         dayDOM.appendChild(textDay);
         monthDateDOM.appendChild(textMonthDate);
@@ -93,6 +86,14 @@
 
         daysDOM.appendChild(dateDOM);
         daysDOM.appendChild(marginRightDOM);
+
+        dateDOMS.push({
+          dateDOM,
+          dayDOM,
+          monthDateDOM,
+          textDay,
+          textMonthDate
+        })
       }
 
       //console.log(dateDOMS)
@@ -111,11 +112,13 @@
         let today = new Date();
 
 
+        dateDOMS[i].dateDOM.setAttribute('data-date', copy_date)
+
+
         if ((this.startDate.getFullYear() == copy_date.getFullYear())) {
           if ((this.startDate.getMonth() == copy_date.getMonth())) {
             if ((this.startDate.getDate() > copy_date.getDate())) {
               dateDOMS[i].dateDOM.classList.add("disabled");
-              console.log();
             } else {
               dateDOMS[i].dateDOM.classList.remove("disabled");
             }
@@ -130,16 +133,21 @@
 
         if ((today.getDay() == copy_date.getDay()) && (today.getDate() == copy_date.getDate()) && (today.getMonth() == copy_date.getMonth()) && (today.getFullYear() == copy_date.getFullYear())) {
           dateDOMS[i].dateDOM.classList.add('today');
-        }else{
+        } else {
           dateDOMS[i].dateDOM.classList.remove('today');
         }
 
-        dateDOMS[i].dateDOM.onclick = (e) => {
-          var elem = e.target;
-          var event = new Event('flClickDate');
-          event.date = copy_date;
-          agendaDOM.dispatchEvent(event);
-        };
+
+        (function (copy_date, dateDOM) {
+
+          dateDOM.onclick = function (e) {
+            var event = new Event('flClickDate');
+            if (dateDOM.classList.contains('disabled')) event.date = null;
+            else event.date = new Date(copy_date.getTime());
+            agendaDOM.dispatchEvent(event);
+          };
+
+        })(copy_date, dateDOMS[i].dateDOM);
 
         dateDOMS[i].textDay.textContent = week[i];
         dateDOMS[i].textMonthDate.textContent = copy_date.toString().split(' ')[1] + ' ' + copy_date.toString().split(' ')[2];
