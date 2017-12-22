@@ -81,11 +81,14 @@
         dateDOM.appendChild(dayDOM);
         dateDOM.appendChild(monthDateDOM);
 
-        var marginRightDOM = document.createElement('div');
-        marginRightDOM.className = 'margin-right';
-
         daysDOM.appendChild(dateDOM);
-        daysDOM.appendChild(marginRightDOM);
+        if(i<6){
+          var marginRightDOM = document.createElement('div');
+          marginRightDOM.className = 'margin-right';
+  
+          daysDOM.appendChild(marginRightDOM);
+        }
+
 
         dateDOMS.push({
           dateDOM,
@@ -112,7 +115,7 @@
         let today = new Date();
 
 
-        dateDOMS[i].dateDOM.setAttribute('data-date', copy_date)
+        dateDOMS[i].dateDOM.setAttribute('data-date', copy_date.toLocaleDateString())
 
 
         if ((this.startDate.getFullYear() == copy_date.getFullYear())) {

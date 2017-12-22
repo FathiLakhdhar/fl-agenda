@@ -26,11 +26,12 @@ blue : #00A2FF;
   content: attr(data-week);
   position: absolute;
   padding: 0px 10px;
-  bottom: -8px;
-  left: 42%;
+  bottom: -7px;
+  left: 43%;
   background-color: white;
   color: #bdbdbd;
   text-transform: uppercase;
+  font-size: 10px;
 }
 
 .fl-agenda::before {
@@ -41,6 +42,7 @@ blue : #00A2FF;
   left: 45%;
   background-color: white;
   color: #bdbdbd;
+  font-size: 12px;
 }
 
 .fl-agenda>span {
@@ -82,13 +84,26 @@ blue : #00A2FF;
 .fl-date:hover {
     box-shadow: 0px 0px 2px #000;
 }
+.fl-date:hover::after {
+  content: attr(data-date);
+  position: absolute;
+  width: 100px;
+  bottom: -20px;
+  right: 0;
+  background: #eee;
+  white-space: nowrap;
+  font-size: 10px;
+  color: #a8a8a8;
+  border-radius: 5px;
+}
 
 .fl-date.today::before {
   content: "– Today –";
   position: absolute;
   top: -25px;
-  left: 13px;
+  left: 22px;
   color: #A8A8A8;
+  font-size: 12px;
 }
 
 .fl-date.disabled {
