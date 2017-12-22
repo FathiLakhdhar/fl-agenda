@@ -1,0 +1,114 @@
+/************************/
+
+/* =     Color          */
+
+/************************/
+
+/************************
+
+grey : #A8A8A8; #bdbdbd;
+blue : #00A2FF;
+
+
+*************************/
+
+.fl-agenda {
+  position: relative;
+  display: table;
+  margin: 5px;
+  padding: 30px;
+  font-family: sans-serif;
+  border-bottom: 1px dashed #bdbdbd;
+  border-top: 1px dashed #bdbdbd;
+}
+
+.fl-agenda::after {
+  content: attr(data-week);
+  position: absolute;
+  padding: 0px 10px;
+  bottom: -8px;
+  left: 42%;
+  background-color: white;
+  color: #bdbdbd;
+  text-transform: uppercase;
+}
+
+.fl-agenda::before {
+  content: attr(data-year);
+  position: absolute;
+  padding: 0px 10px;
+  top: -8px;
+  left: 45%;
+  background-color: white;
+  color: #bdbdbd;
+}
+
+.fl-agenda>span {
+  position: absolute;
+  top: 37%;
+  font-size: 40px;
+  color: #00a2ff;
+  cursor: pointer;
+}
+
+.fl-agenda>span.disabled {
+  cursor: not-allowed;
+  color: #A8A8A8;
+}
+
+.fl-agenda>span:nth-of-type(1) {
+  left: 0;
+}
+
+.fl-agenda>span:nth-of-type(2) {
+  right: 0;
+}
+
+.fl-date {
+  position: relative;
+  display: table-cell;
+  min-width: 100px;
+  min-height: 100px;
+  width: 100px;
+  height: 100px;
+  margin-right: 5px;
+  border: 4px solid #00A2FF;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.fl-date:hover {
+    box-shadow: 0px 0px 2px #000;
+}
+
+.fl-date.today::before {
+  content: "– Today –";
+  position: absolute;
+  top: -25px;
+  left: 13px;
+  color: #A8A8A8;
+}
+
+.fl-date.disabled {
+  border: 4px solid #A8A8A8;
+  cursor: not-allowed;
+}
+
+.fl-date>span {
+  display: block;
+  text-transform: uppercase;
+}
+
+.fl-date>span:nth-of-type(2) {
+  color: #A8A8A8;
+}
+
+.fl-day {
+  font-weight: bolder;
+}
+
+.margin-right {
+  margin-right: 10px;
+}
