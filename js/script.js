@@ -1,6 +1,6 @@
 var options={
-  startDate : new Date(),
-  endDate : new Date(2018, 0, 2)
+  startDate : new Date(2018, 0, 1),
+  endDate : new Date(2018, 0, 5)
 }
 
 calendly = new Calendly('agenda', options);
