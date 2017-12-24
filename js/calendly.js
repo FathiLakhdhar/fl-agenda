@@ -42,8 +42,8 @@
     spanNext.onclick = () => this.nextWeek();
 
 
-    this.addEventListener = function (label, fn, bool) {
-      agendaDOM.addEventListener(label, (e) => fn(e), bool);
+    this.addEventListener = function (label, fn, useCapture= true) {
+      agendaDOM.addEventListener(label, (e) => fn(e), useCapture);
     }
 
 
