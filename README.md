@@ -1,5 +1,5 @@
 # fl-agenda
-Plugin Agenda JavaScript 
+Plugin Agenda JavaScript
 ![Capture Plugin Agenda JavaScript](https://github.com/FathiLakhdhar/fl-agenda/blob/master/Capture.png)
 
 ## Exemple
@@ -9,7 +9,7 @@ Plugin Agenda JavaScript
 <link rel="stylesheet" href="css/calendly.css">
 ```
 
-### html 
+### html
 ```
     <div id="agenda"></div>
 ```
@@ -23,7 +23,9 @@ create script.js
 ```javascript
 var options={
   startDate : new Date(2018, 0, 1),
-  endDate : new Date(2018, 0, 5)
+  endDate : new Date(2018, 0, 5),
+  holidays: [new Date(2018, 0, 3)],
+  weekHolidays: [0, 5]
 }
 
 calendly = new Calendly('agenda', options);
