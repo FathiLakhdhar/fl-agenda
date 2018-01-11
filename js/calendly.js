@@ -20,6 +20,12 @@
     var currentweekdate = new Date();
     var week = ["SU", "MO", "TU", "WE", "TH", "FR", "SA"];
     var nbWeek = 0;
+    var Options = {
+      startDate: startDate,
+      endDate: endDate,
+      holidays: [],
+      weekHolidays: []
+    }
 
     var agendaDOM = document.createElement('div');
 
@@ -103,7 +109,7 @@
     })();
 
     function dateIsInHolidays(date) {
-      const index= options.holidays.findIndex(function(holiday) {
+      const index= Options.holidays.findIndex(function(holiday) {
         return (
           (holiday.getDate() == date.getDate())&&
           (holiday.getFullYear() == date.getFullYear())&&
@@ -127,7 +133,7 @@
         dateDOMS[i].dateDOM.setAttribute('data-date', copy_date.toLocaleDateString())
 
         if (!((copy_date >= startDate) && (copy_date <= endDate)) ||
-          options.weekHolidays.includes(copy_date.getDay()) ||
+          Options.weekHolidays.includes(copy_date.getDay()) ||
           dateIsInHolidays(copy_date)
         ) {
           dateDOMS[i].dateDOM.classList.add("disabled");
@@ -177,12 +183,7 @@
 
     (function Init(elm, options) {
 
-      var Options = {
-        startDate: startDate,
-        endDate: endDate,
-        holidays: [],
-        weekHolidays: []
-      }
+      
 
       Object.assign(Options, options);
 
