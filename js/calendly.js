@@ -1,4 +1,4 @@
-(function () {
+(function() {
 
   /*
   Agenda DOM
@@ -42,19 +42,19 @@
     spanNext.onclick = () => this.nextWeek();
 
 
-    this.addEventListener = function (label, fn, useCapture= true) {
+    this.addEventListener = function(label, fn, useCapture = true) {
       agendaDOM.addEventListener(label, (e) => fn(e), useCapture);
     }
 
 
-    this.nextWeek = function () {
+    this.nextWeek = function() {
       nbWeek++;
       currentweekdate.setDate(currentweekdate.getDate() + 7);
       spanPrev.className = 'ion ion-chevron-left';
       updateDOM();
     };
 
-    this.prevWeek = function () {
+    this.prevWeek = function() {
       let today = new Date();
       if (nbWeek > 0) {
         nbWeek--;
@@ -64,7 +64,7 @@
       }
     };
 
-    (function () {
+    (function() {
       for (var i = 0; i < 7; i++) {
         var dateDOM = document.createElement('div');
         dateDOM.className = 'fl-date';
@@ -82,7 +82,7 @@
         dateDOM.appendChild(monthDateDOM);
 
         daysDOM.appendChild(dateDOM);
-        if(i<6){
+        if (i < 6) {
           var marginRightDOM = document.createElement('div');
           marginRightDOM.className = 'margin-right';
 
@@ -102,6 +102,17 @@
 
     })();
 
+    function dateIsInHolidays(date) {
+      const index= options.holidays.findIndex(function(holiday) {
+        return (
+          (holiday.getDate() == date.getDate())&&
+          (holiday.getFullYear() == date.getFullYear())&&
+          (holiday.getMonth() == date.getMonth())
+        )
+      })
+      return (index>=0)? true : false;
+    }
+
     function updateDOM() {
       updateYearDOM();
       updateNbWeekDOM();
@@ -115,9 +126,12 @@
 
         dateDOMS[i].dateDOM.setAttribute('data-date', copy_date.toLocaleDateString())
 
-        if(!((copy_date >= startDate) && (copy_date <= endDate))){
+        if (!((copy_date >= startDate) && (copy_date <= endDate)) ||
+          options.weekHolidays.includes(copy_date.getDay()) ||
+          dateIsInHolidays(copy_date)
+        ) {
           dateDOMS[i].dateDOM.classList.add("disabled");
-        }else{
+        } else {
           dateDOMS[i].dateDOM.classList.remove("disabled");
         }
 
@@ -133,9 +147,9 @@
         }
 
 
-        (function (copy_date, dateDOM) {
+        (function(copy_date, dateDOM) {
 
-          dateDOM.onclick = function (e) {
+          dateDOM.onclick = function(e) {
             var event = new Event('flClickDate');
             if (dateDOM.classList.contains('disabled')) event.date = null;
             else event.date = new Date(copy_date.getTime());
@@ -163,7 +177,7 @@
 
     (function Init(elm, options) {
 
-      var Options={
+      var Options = {
         startDate: startDate,
         endDate: endDate,
         holidays: [],
@@ -172,8 +186,8 @@
 
       Object.assign(Options, options);
 
-      if(options.startDate && !options.endDate)
-        Options.endDate= new Date(Options.startDate.getFullYear()+1, Options.startDate.getMonth(), Options.startDate.getDay())
+      if (options.startDate && !options.endDate)
+        Options.endDate = new Date(Options.startDate.getFullYear() + 1, Options.startDate.getMonth(), Options.startDate.getDay())
 
 
       if (elm) elem = document.getElementById(elm);
